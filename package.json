@@ -1,20 +1,22 @@
 {
-   "name": "second-backend",
-   "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
-   "type": "commonjs",
-   "devDependencies": {
-      "ts-node": "10.9.1",
-      "@types/node": "^16.11.10",
-      "typescript": "4.5.2"
-   },
-   "dependencies": {
-      "typeorm": "0.3.20",
-      "reflect-metadata": "^0.1.13",
-      "pg": "^8.4.0"
-   },
-   "scripts": {
-      "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs"
-   }
+  "name": "alaska-sample",
+  "version": "0.0.1",
+  "description": "alaska-sample",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^16.11.10",
+    "ts-node": "10.9.1",
+    "typescript": "4.5.2"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "express": "^4.19.2",
+    "pg": "^8.4.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "0.3.20"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "typeorm": "typeorm-ts-node-commonjs"
+  }
 }
