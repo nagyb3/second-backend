@@ -5,12 +5,27 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    type: "text",
+    nullable: true, // TODO
+  })
   firstName: string;
 
-  @Column()
+  @Column({
+    type: "text",
+    nullable: true, // TODO
+  })
   lastName: string;
 
-  @Column()
-  age: number;
+  @Column({
+    type: "text",
+    nullable: true, // TODO change this to true later
+  })
+  email: string;
+
+  @Column({
+    type: "text",
+    nullable: true, // TODO change this to true later
+  })
+  password: string;
 }
