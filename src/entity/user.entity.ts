@@ -7,25 +7,31 @@ export class User {
 
   @Column({
     type: "text",
-    nullable: true, // TODO
+    nullable: false,
   })
   firstName: string;
 
   @Column({
     type: "text",
-    nullable: true, // TODO
+    nullable: false,
   })
   lastName: string;
 
   @Column({
     type: "text",
-    nullable: true, // TODO change this to true later
+    nullable: false,
   })
   email: string;
 
   @Column({
     type: "text",
-    nullable: true, // TODO change this to true later
+    nullable: false,
   })
   password: string;
+
+  @Column({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  createdAt?: Date;
 }
