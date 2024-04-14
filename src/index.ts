@@ -1,9 +1,13 @@
 import { AppDataSource } from "./data-source";
-const userRouter = require("./routers/user.router");
 import * as express from "express";
 import * as dotenv from "dotenv";
 import { Request, Response } from "express";
 import "reflect-metadata";
+
+const userRouter = require("./routers/user.router");
+const topicRouter = require("./routers/topic.router");
+const postRouter = require("./routers/post.router");
+
 dotenv.config();
 
 const PORT = process.env.PORT || 5001;
@@ -16,6 +20,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/users", userRouter);
+app.use("/topic", topicRouter);
+app.use("/post", postRouter);
 
 app.listen(Number(PORT), "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);

@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Post } from "./post.entity";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Topic } from "./topic.entity";
+import { User } from "./user.entity";
 
 @Entity()
-export class Topic {
+export class Post {
   @PrimaryGeneratedColumn("uuid")
   id: number;
 
@@ -17,8 +18,11 @@ export class Topic {
   })
   description: string;
 
-  @OneToMany(() => Post, (post) => post.topic)
-  posts: Post[];
+  @ManyToOne(() => User, (user) => user.posts)
+  author: User;
+
+  @ManyToOne(() => Topic, (topic) => topic.posts)
+  topic: Topic;
 
   @Column({
     type: "timestamp",

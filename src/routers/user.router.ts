@@ -24,7 +24,8 @@ router.get("/", async (req, res) => {
   try {
     const users = await AppDataSource.getRepository("User").find();
     return res.json(users);
-  } catch {
+  } catch (error) {
+    console.error({ error });
     return res.status(500).json({ message: "Something went wrong" });
   }
 });
@@ -44,8 +45,8 @@ router.post("/sign-up", async (req, res) => {
     user.email = email;
 
     await AppDataSource.getRepository("User").save(user);
-  } catch {
-    console.error("error happened while trying to sign-up user");
+  } catch (error) {
+    console.error({ error });
     return res.status(500).json({ message: "Something went wrong" });
   }
   console.log("sign-up success");
@@ -66,8 +67,5 @@ router.post("/login", async (req, res) => {
   }
   return res.status(401).json({ message: "Invalid credentials" });
 });
-
-// TODO:
-// password reset functionalitya
 
 module.exports = router;
