@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import "reflect-metadata";
 dotenv.config();
 
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 const app = express();
 
 app.use(express.json());
@@ -17,7 +17,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/users", userRouter);
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(Number(PORT), "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
