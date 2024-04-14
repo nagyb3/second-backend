@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
 });
 
 // POST: signup new user
-router.post("/", async (req, res) => {
+router.post("/sign-up", async (req, res) => {
   const user: User = new User();
   try {
     const { firstName, lastName, password, email } = req.body;
