@@ -45,8 +45,10 @@ router.post("/sign-up", async (req, res) => {
 
     await AppDataSource.getRepository("User").save(user);
   } catch {
+    console.error("error happened while trying to sign-up user");
     return res.status(500).json({ message: "Something went wrong" });
   }
+  console.log("sign-up success");
   return res.json(user);
 });
 
