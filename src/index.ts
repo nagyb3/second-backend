@@ -3,6 +3,7 @@ import * as express from "express";
 import * as dotenv from "dotenv";
 import { Request, Response } from "express";
 import "reflect-metadata";
+const cors = require("cors");
 
 const userRouter = require("./routers/user.router");
 const topicRouter = require("./routers/topic.router");
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 5001;
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ hello: "world" });

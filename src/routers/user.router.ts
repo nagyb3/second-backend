@@ -2,6 +2,7 @@ import { Router } from "express";
 import { AppDataSource } from "../data-source";
 import { User } from "../entity/user.entity";
 
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const router = Router();
 
@@ -61,9 +62,16 @@ router.post("/login", async (req, res) => {
     .where("user.email = :email", { email })
     .getOne();
 
-  // TODO: jwt token gen
+  const token = jwt.sign(
+    { id: user.id, email: user.email },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: 60 * 60,
+    }
+  );
+
   if (user && bcrypt.compareSync(password, user.password)) {
-    return res.json(user);
+    return res.json({ token: token });
   }
   return res.status(401).json({ message: "Invalid credentials" });
 });
