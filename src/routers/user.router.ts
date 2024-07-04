@@ -76,4 +76,39 @@ router.post("/login", async (req, res) => {
   return res.status(401).json({ message: "Invalid credentials" });
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    await AppDataSource.getRepository("User")
+      .createQueryBuilder("user")
+      .delete()
+      .where("id = :id", { id: req.params.id })
+      .execute();
+
+    return res.status(204).send();
+  } catch (error) {
+    console.error({ error });
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+// update user data
+router.put("/:id", async (req, res) => {
+  try {
+    const user = await AppDataSource.getRepository("User")
+      .createQueryBuilder("user")
+      .where("id = :id", { id: req.params.id })
+      .getOneOrFail();
+
+    req?.body?.firstName !== undefined && (user.firstName = req.body.firstName);
+    req?.body?.lastName !== undefined && (user.lastName = req.body.lastName);
+    req?.body?.email !== undefined && (user.email = req.body.email);
+
+    await AppDataSource.getRepository("User").save(user);
+    return res.json(user);
+  } catch (error) {
+    console.error({ error });
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
 module.exports = router;

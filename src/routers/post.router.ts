@@ -62,4 +62,40 @@ router.post("/", async (req, res) => {
   }
 });
 
+// remove post
+router.delete("/:id", async (req, res) => {
+  try {
+    const post = await AppDataSource.getRepository("Post")
+      .createQueryBuilder("post")
+      .where("id = :id", { id: req.params.id })
+      .getOneOrFail();
+
+    await AppDataSource.getRepository("Post").remove(post);
+    res.status(200);
+  } catch (error) {
+    console.error({ error });
+    res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+// update post
+router.put("/:id", async (req, res) => {
+  try {
+    const post = await AppDataSource.getRepository("Post")
+      .createQueryBuilder("post")
+      .where("id = :id", { id: req.params.id })
+      .getOneOrFail();
+
+    req?.body?.title !== undefined && (post.title = req.body.title);
+    req?.body?.description !== undefined &&
+      (post.description = req.body.description);
+
+    await AppDataSource.getRepository("Post").save(post);
+    res.json(post);
+  } catch (error) {
+    console.error({ error });
+    res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
 module.exports = router;

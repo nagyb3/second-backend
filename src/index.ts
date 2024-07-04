@@ -31,4 +31,6 @@ app.listen(Number(PORT), "0.0.0.0", () => {
 
 AppDataSource.initialize()
   .then(() => console.log("db connection successful!"))
-  .catch(() => console.error("error while trying establish db connection!"));
+  .catch((error) =>
+    console.error("error while trying establish db connection: ", error),
+  );
